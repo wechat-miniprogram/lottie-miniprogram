@@ -90,7 +90,7 @@ export default class XMLHttpRequest {
         url: _url.get(this),
         method: _method.get(this),
         header: _requestHeader.get(this),
-        responseType: this.responseType,
+        // responseType: this.responseType,
         success: ({ data, statusCode, header }) => {
           if (typeof data !== 'string' && !(data instanceof ArrayBuffer)) {
             try {
