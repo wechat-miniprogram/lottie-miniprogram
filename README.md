@@ -11,7 +11,7 @@ lottie 动画库适配小程序的版本。
 
 ## 使用
 
-可参考该代码片段：[https://developers.weixin.qq.com/s/ALhTdImM7jaR](https://developers.weixin.qq.com/s/ALhTdImM7jaR)。大致步骤如下：
+可参考该代码片段：[https://developers.weixin.qq.com/s/2TYvm9mJ75bF](https://developers.weixin.qq.com/s/2TYvm9mJ75bF)。大致步骤如下：
 
 1. 通过 npm 安装：
 ```
