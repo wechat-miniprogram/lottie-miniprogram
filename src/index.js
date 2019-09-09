@@ -1,5 +1,7 @@
-import {setup} from './adapter'
-const lottie = require('../node_modules/lottie-web/build/player/lottie_canvas')
+import {setup, g} from './adapter'
+const {window, document, navigator} = g
+
+;'__LOTTIE_CANVAS__'
 
 function loadAnimation(options) {
   ['wrapper', 'container'].forEach(key => {
@@ -15,7 +17,7 @@ function loadAnimation(options) {
   }
   options.renderer = 'canvas'
   // options.rendererSettings.clearCanvas = false
-  return lottie.loadAnimation(options)
+  return window.lottie.loadAnimation(options)
 }
 
 export {

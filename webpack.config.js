@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const fs = require('fs')
 
 module.exports = {
   entry: './src/index.js',
@@ -20,16 +21,21 @@ module.exports = {
           presets: ['@babel/preset-env'],
           plugins: ['@babel/plugin-proposal-class-properties'],
         },
+      }, {
+        loader: 'string-replace-loader',
+        options: {
+          multiple: [{
+            search: `'__LOTTIE_CANVAS__'`,
+            replace: fs.readFileSync('./node_modules/lottie-web/build/player/lottie_canvas.js', {encoding: 'utf8'}),
+          }, {
+            search: '__[STANDALONE]__',
+            replace: '',
+          }]
+        }
       }],
       exclude: /node_modules/
-    }, {
-      test: /\.js$/i,
-      loader: 'string-replace-loader',
-      options: {
-        search: '__[STANDALONE]__',
-        replace: '',
-      }
     }]
   },
-  plugins: [],
+  amd: false,
+  plugins: [new webpack.optimize.ModuleConcatenationPlugin()],
 }

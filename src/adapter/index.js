@@ -1,15 +1,5 @@
 import XHR from './XMLHttpRequest'
 
-if (typeof window === 'undefined') {
-  window = {}
-}
-if (typeof document === 'undefined') {
-  document = window.document = {}
-}
-if (typeof navigator === 'undefined') {
-  navigator = window.navigator = {}
-}
-
 function noop() {}
 
 function createImg(canvas) {
@@ -69,14 +59,23 @@ function wrapMethodFatory(ctx, methodName, wrappedMethod) {
 }
 
 const systemInfo = wx.getSystemInfoSync()
+const g = {}
 
-window.devicePixelRatio = systemInfo.pixelRatio
-document.createElement = createElement
-document.body = {}
-navigator.userAgent = ''
+g.window = {
+  devicePixelRatio: systemInfo.pixelRatio,
+}
+g.document = g.window.document = {
+  body: {},
+  createElement,
+}
+g.navigator = g.window.navigator = {
+  userAgent: ''
+}
+
 XMLHttpRequest = XHR
 
 export const setup = (canvas) => {
+  const {window, document} = g
   window.requestAnimationFrame = canvas.requestAnimationFrame.bind(canvas)
   window.cancelAnimationFrame = canvas.cancelAnimationFrame.bind(canvas)
 
@@ -90,3 +89,5 @@ export const setup = (canvas) => {
   wrapMethodFatory(ctx, 'setLineDash', wrapSetLineDash)
   wrapMethodFatory(ctx, 'fill', wrapFill)
 }
+
+export {g}
