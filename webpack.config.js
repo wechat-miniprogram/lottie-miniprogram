@@ -37,5 +37,10 @@ module.exports = {
     }]
   },
   amd: false,
-  plugins: [new webpack.optimize.ModuleConcatenationPlugin()],
+  plugins: [
+    new webpack.DefinePlugin({
+      'define': {}
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+  ],
 }
