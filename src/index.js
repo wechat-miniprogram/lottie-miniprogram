@@ -20,7 +20,11 @@ function loadAnimation(options) {
   return window.lottie.loadAnimation(options)
 }
 
+const {freeze, unfreeze} = window.lottie
+
 export {
   setup,
   loadAnimation,
+  freeze,
+  unfreeze,
 }
