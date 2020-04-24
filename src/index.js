@@ -1,9 +1,9 @@
-import {setup, g} from './adapter'
-const {window, document, navigator} = g
+import { setup, g } from './adapter'
+const { window, document, navigator } = g
 
-;'__LOTTIE_CANVAS__'
+  ; '__LOTTIE_CANVAS__'
 
-function loadAnimation(options) {
+function loadAnimation (options) {
   ['wrapper', 'container'].forEach(key => {
     if (key in options) {
       throw new Error(`Not support '${key}' parameter in miniprogram version of lottie.`)
@@ -20,11 +20,25 @@ function loadAnimation(options) {
   return window.lottie.loadAnimation(options)
 }
 
-const {freeze, unfreeze} = window.lottie
+const miniprogramDestroy = window.lottie.destroy
+
+const { freeze, unfreeze, getRegisteredAnimations } = window.lottie
+
+function destroy (name) {
+  const animations = getRegisteredAnimations() || []
+  animations.forEach(animation => {
+    animation.wrapper = {
+      innerHTML: ''
+    }
+  })
+  miniprogramDestroy(name)
+}
+
 
 export {
   setup,
   loadAnimation,
   freeze,
   unfreeze,
+  destroy
 }
