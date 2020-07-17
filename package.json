@@ -1,6 +1,6 @@
 {
   "name": "lottie-miniprogram",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "lottie for miniprogram",
   "main": "miniprogram_dist/index.js",
   "scripts": {

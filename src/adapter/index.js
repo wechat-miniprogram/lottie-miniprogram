@@ -2,6 +2,10 @@ import XHR from './XMLHttpRequest'
 
 function noop() {}
 
+function notSupport() {
+  console.error('小程序由于不支持动态创建 canvas 的能力，故 lottie 中有关图片处理的操作无法支持，请保持图片的原始宽高与 JSON 描述的一致，避免需要对图片处理')
+}
+
 function createImg(canvas) {
   if (typeof canvas.createImage === 'undefined') {
     // TODO the return value should be replaced after setupLottie
@@ -22,10 +26,13 @@ function createImg(canvas) {
 
 function createElement(tagName) {
   if (tagName === 'canvas') {
+    console.warn('发现 Lottie 动态创建 canvas 组件，但小程序不支持动态创建组件，接下来可能会出现异常')
     return {
       getContext: function () {
         return {
           fillRect: noop,
+          createImage: notSupport,
+          drawImage: notSupport,
         }
       },
     }
