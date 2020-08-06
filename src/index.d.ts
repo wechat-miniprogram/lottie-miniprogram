@@ -11,7 +11,7 @@ type CanvasRendererConfig = BaseRendererConfig & {
 };
 
 interface LoadAnimationParameter {
-  renderer?: 'svg' | 'canvas' | 'html';
+  renderer?: 'canvas';
   loop?: boolean | number;
   autoplay?: boolean;
   name?: string;
@@ -29,7 +29,6 @@ interface LoadAnimationReturnType {
   play(): void;
   stop(): void;
   pause(): void;
-  setLocationHref(href: string): void;
   setSpeed(speed: number): void;
   goToAndPlay(value: number, isFrame?: boolean): void;
   goToAndStop(value: number, isFrame?: boolean): void;
