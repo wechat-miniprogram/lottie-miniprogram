@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const fs = require('fs')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -42,5 +43,13 @@ module.exports = {
       'define': {}
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { 
+          from: path.resolve(__dirname, 'src', 'index.d.ts'), 
+          to: path.resolve(__dirname, 'miniprogram_dist', 'index.d.ts')
+        },
+      ],
+    }),
   ],
 }
