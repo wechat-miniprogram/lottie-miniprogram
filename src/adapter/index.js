@@ -83,9 +83,14 @@ XMLHttpRequest = XHR
 
 export const setup = (canvas) => {
   const {window, document} = g
+  g._requestAnimationFrame = window.requestAnimationFrame
+  g._cancelAnimationFrame = window.cancelAnimationFrame
   window.requestAnimationFrame = canvas.requestAnimationFrame.bind(canvas)
   window.cancelAnimationFrame = canvas.cancelAnimationFrame.bind(canvas)
 
+  g._body = document.body
+  g._createElement = document.createElement
+  document.body = {}
   document.createElement = createElement.bind(canvas)
 
   const ctx = canvas.getContext('2d')
@@ -95,6 +100,14 @@ export const setup = (canvas) => {
 
   wrapMethodFatory(ctx, 'setLineDash', wrapSetLineDash)
   wrapMethodFatory(ctx, 'fill', wrapFill)
+}
+
+export const restore = () => {
+  const {window, document} = g
+  window.requestAnimationFrame = g._requestAnimationFrame
+  window.cancelAnimationFrame = g._cancelAnimationFrame
+  document.body = g._body
+  document.createElement = g._createElement
 }
 
 export {g}
