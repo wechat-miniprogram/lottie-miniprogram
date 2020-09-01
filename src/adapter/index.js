@@ -66,7 +66,13 @@ function wrapMethodFatory(ctx, methodName, wrappedMethod) {
 }
 
 const systemInfo = wx.getSystemInfoSync()
-const g = {}
+const g = {
+  requestAnimationFrame(cb) {
+    setTimeout(() => {
+      typeof cb === 'function' && cb(Date.now())
+    }, 16)
+  },
+}
 
 g.window = {
   devicePixelRatio: systemInfo.pixelRatio,
@@ -85,7 +91,20 @@ export const setup = (canvas) => {
   const {window, document} = g
   g._requestAnimationFrame = window.requestAnimationFrame
   g._cancelAnimationFrame = window.cancelAnimationFrame
-  window.requestAnimationFrame = canvas.requestAnimationFrame.bind(canvas)
+  // lottie 对象是单例，内部状态（_stopped）在多页面下会混乱，保持 rAF 持续运行可规避
+  window.requestAnimationFrame = function requestAnimationFrame(cb) {
+    let called = false
+    setTimeout(() => {
+      if (called) return
+      called = true
+      typeof cb === 'function' && cb(Date.now())
+    }, 100)
+    canvas.requestAnimationFrame((timeStamp) => {
+      if (called) return
+      called = true
+      typeof cb === 'function' && cb(timeStamp)
+    })
+  }
   window.cancelAnimationFrame = canvas.cancelAnimationFrame.bind(canvas)
 
   g._body = document.body
