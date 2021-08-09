@@ -56,13 +56,7 @@ function wrapFill(ctx, originalFill) {
 
 function wrapMethodFatory(ctx, methodName, wrappedMethod) {
   const originalMethod = ctx[methodName]
-  Object.defineProperty(ctx, methodName, {
-    get() {
-      return wrappedMethod(ctx, originalMethod)
-    },
-    configurable: true,
-    enumerable: true,
-  })
+  ctx[methodName] = wrappedMethod(ctx, originalMethod)
 }
 
 const systemInfo = wx.getSystemInfoSync()
