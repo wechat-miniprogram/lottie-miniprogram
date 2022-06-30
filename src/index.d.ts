@@ -22,7 +22,7 @@ interface LoadAnimationParameter {
 
 type AnimationDirection = 1 | -1;
 type AnimationSegment = [number, number];
-type AnimationEventName = 'enterFrame' | 'loopComplete' | 'complete' | 'segmentStart' | 'destroy';
+type AnimationEventName = 'enterFrame' | 'loopComplete' | 'complete' | 'segmentStart' | 'destroy' | 'config_ready' | 'data_ready' | 'DOMLoaded' | 'error' | 'data_failed' | 'loaded_images';
 type AnimationEventCallback<T = any> = (args: T) => void;
 
 interface LoadAnimationReturnType {
