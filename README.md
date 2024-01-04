@@ -27,7 +27,7 @@ import lottie from 'lottie-miniprogram'
 
 Page({
   onReady() {
-    wx.createSelectorQuery().select('#canvas').node(res => {
+    this.createSelectorQuery().select('#canvas').node(res => {
       const canvas = res.node
       lottie.setup(canvas)
     }).exec()
