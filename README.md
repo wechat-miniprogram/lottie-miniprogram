@@ -38,9 +38,10 @@ Page({
 3. 使用 lottie 接口
 ```
 lottie.setup(canvas)
-lottie.loadAnimation({
+this.ani = lottie.loadAnimation({
   ...
 })
+this.ani.destroy() // 页面退出需销毁
 ```
 
 ## 接口
